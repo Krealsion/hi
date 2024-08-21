@@ -65,6 +65,7 @@ const sendMessage = async (channel, message) => {
     // Store the message in the list
     await redis.publish(channel, message);
     await redis.rpush(MESSAGE_LIST_KEY, JSON.stringify({ channel, message, timestamp: new Date() }));
+    io.emit('chat message', message);
 
     console.log(`Message sent to channel ${channel}: ${message}`);
   } catch (error) {
