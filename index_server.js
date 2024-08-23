@@ -1,4 +1,5 @@
-const app = require('express')();
+const express = require('express');
+const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const port = process.env.PORT || 3000;
@@ -27,14 +28,16 @@ const updateWithMessages = async (socket) => {
     console.error('Error retrieving messages:', error);
   }
 };
+//
+// app.get('/', (req, res) => {
+//   res.sendFile(__dirname + '/index.html');
+// });
+//
+// app.get('/index.css', (req, res) => {
+//   res.sendFile(__dirname + '/index.css');
+// });
 
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
-});
-
-app.get('/index.css', (req, res) => {
-  res.sendFile(__dirname + '/index.css');
-});
+app.use(express.static("public"));
 
 io.on('connection', async (socket) => {
   console.log('New WebSocket client connected.');
