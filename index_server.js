@@ -32,6 +32,10 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
 
+app.get('/index.css', (req, res) => {
+  res.sendFile(__dirname + '/index.css');
+});
+
 io.on('connection', async (socket) => {
   console.log('New WebSocket client connected.');
   socket.on('chat message', msg => {
