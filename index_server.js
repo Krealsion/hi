@@ -4,6 +4,7 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const port = process.env.PORT || 3000;
 const ioredis = require('ioredis');
+const path = require('path');
 
 const redis = new ioredis();
 const MESSAGE_LIST_KEY = 'messages';
@@ -37,7 +38,7 @@ const updateWithMessages = async (socket) => {
 //   res.sendFile(__dirname + '/index.css');
 // });
 
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, 'public')));
 
 io.on('connection', async (socket) => {
   console.log('New WebSocket client connected.');
