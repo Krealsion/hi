@@ -13,9 +13,9 @@ const MAIN_CHANNEL_KEY = 'main';
 // Function to send a message to a specific channel and store it
 const sendMessage = async (channel, name, message) => {
   try {
-    await redis.rpush(MESSAGE_LIST_KEY, JSON.stringify({ channel, name, message, timestamp: new Date() }));
+    await redis.rpush(MESSAGE_LIST_KEY, JSON.stringify({ channel, name: name, message: message, timestamp: new Date() }));
     io.emit('chat message', name, message);
-    console.log(`Message sent to channel ${channel}: ${message}`);
+    console.log(`User ${name} sent message sent to channel ${channel}: ${message}`);
   } catch (error) {
     console.error('Error sending message:', error);
   }
@@ -24,7 +24,7 @@ const sendMessage = async (channel, name, message) => {
 const updateWithMessages = async (socket) => {
   try {
     const messages = await redis.lrange(MESSAGE_LIST_KEY, 0, -1);
-    messages.map(msg => socket.emit('chat message',  "", JSON.parse(msg).message));
+    messages.map(msg => socket.emit('chat message', JSON.parse(msg).name.concat(""), JSON.parse(msg).message));
   } catch (error) {
     console.error('Error retrieving messages:', error);
   }
