@@ -2,7 +2,7 @@ body { margin: 0; padding-bottom: 3rem; font-family: -apple-system, BlinkMacSyst
 
 #form { background: rgba(0, 0, 0, 0.15); padding: 0.25rem; position: fixed; bottom: 0; left: 0; right: 0; display: flex; height: 3rem; box-sizing: border-box; backdrop-filter: blur(10px); }
 #name_text_box {height: 100%}
-#name_text {vertical-align: middle;}
+#name_text {position: relative; top: 50%; -webkit-transform: translateY(-50%); -ms-transform: translateY(-50%); transform: translateY(-50%);}
 #name_input { border: none; padding: 0 1rem; flex-grow: .2; border-radius: 2rem; margin: 0.25rem; }
 #input { border: none; padding: 0 1rem; flex-grow: 1; border-radius: 2rem; margin: 0.25rem; }
 #input:focus { outline: none; }
