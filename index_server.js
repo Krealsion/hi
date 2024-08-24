@@ -24,7 +24,7 @@ const sendMessage = async (channel, name, message) => {
 const updateWithMessages = async (socket) => {
   try {
     const messages = await redis.lrange(MESSAGE_LIST_KEY, 0, -1);
-    messages.map(msg => socket.emit('chat message', JSON.parse(msg).name, JSON.parse(msg).message));
+    messages.map(msg => socket.emit('chat message', JSON.parse(msg).name + "", JSON.parse(msg).message));
   } catch (error) {
     console.error('Error retrieving messages:', error);
   }
