@@ -12,9 +12,9 @@ form.addEventListener('submit', function(e) {
     }
 });
 
-socket.on('chat message', function(msg) {
+socket.on('chat message', function(name, msg) {
     let item = document.createElement('li');
-    item.textContent = msg;
+    item.textContent = name + ": " + msg;
     messages.appendChild(item);
     window.scrollTo(0, document.body.scrollHeight);
 });

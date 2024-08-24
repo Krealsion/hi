@@ -11,10 +11,10 @@ const MESSAGE_LIST_KEY = 'messages';
 const MAIN_CHANNEL_KEY = 'main';
 
 // Function to send a message to a specific channel and store it
-const sendMessage = async (channel, message) => {
+const sendMessage = async (channel, name, message) => {
   try {
-    await redis.rpush(MESSAGE_LIST_KEY, JSON.stringify({ channel, message, timestamp: new Date() }));
-    io.emit('chat message', message);
+    await redis.rpush(MESSAGE_LIST_KEY, JSON.stringify({ channel, name, message, timestamp: new Date() }));
+    io.emit('chat message', name, message);
     console.log(`Message sent to channel ${channel}: ${message}`);
   } catch (error) {
     console.error('Error sending message:', error);
@@ -24,26 +24,18 @@ const sendMessage = async (channel, message) => {
 const updateWithMessages = async (socket) => {
   try {
     const messages = await redis.lrange(MESSAGE_LIST_KEY, 0, -1);
-    messages.map(msg => socket.emit('chat message', JSON.parse(msg).message));
+    messages.map(msg => socket.emit('chat message', JSON.parse(msg).name, JSON.parse(msg).message));
   } catch (error) {
     console.error('Error retrieving messages:', error);
   }
 };
-//
-// app.get('/', (req, res) => {
-//   res.sendFile(__dirname + '/index.html');
-// });
-//
-// app.get('/index.css', (req, res) => {
-//   res.sendFile(__dirname + '/index.css');
-// });
 
 app.use(express.static(path.join(__dirname, 'public')));
 
 io.on('connection', async (socket) => {
   console.log('New WebSocket client connected.');
-  socket.on('chat message', msg => {
-    sendMessage(MAIN_CHANNEL_KEY, msg);
+  socket.on('chat message', (name, msg) => {
+    sendMessage(MAIN_CHANNEL_KEY, name, msg);
   });
   await updateWithMessages(socket);
 });
