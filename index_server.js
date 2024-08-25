@@ -15,7 +15,7 @@ const sendMessage = async (channel, name, message) => {
   try {
     let now = new Date();
     await redis.rpush(MESSAGE_LIST_KEY, JSON.stringify({ channel, name: name, message: message, timestamp: now }));
-    io.emit('chat message', name, message, now);
+    io.emit('chat message', name, message, now.toLocaleString());
     console.log(`User ${name} sent message sent to channel ${channel}: ${message}`);
   } catch (error) {
     console.error('Error sending message:', error);
@@ -25,7 +25,7 @@ const sendMessage = async (channel, name, message) => {
 const updateWithMessages = async (socket) => {
   try {
     const messages = await redis.lrange(MESSAGE_LIST_KEY, 0, -1);
-    messages.map(msg => socket.emit('chat message', " ".concat(JSON.parse(msg).name), JSON.parse(msg).message, JSON.parse(msg).timestamp));
+    messages.map(msg => socket.emit('chat message', " ".concat(JSON.parse(msg).name), JSON.parse(msg).message, JSON.parse(msg).timestamp.toLocaleString()));
   } catch (error) {
     console.error('Error retrieving messages:', error);
   }
