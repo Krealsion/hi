@@ -13,9 +13,15 @@ form.addEventListener('submit', function(e) {
     }
 });
 
-socket.on('chat message', function(name, msg) {
+socket.on('chat message', function(name, msg, date_time) {
     let item = document.createElement('li');
-    item.textContent = name + ": " + msg;
+    let message_text = document.createElement('div');
+    message_text.textContent = name + ": " + msg;
+    let date_text = document.createElement('div');
+    date_text.setAttribute('float', 'right');
+    date_text.textContent = date_time;
+    item.appendChild(message_text);
+    item.appendChild(date_text);
     messages.appendChild(item);
     window.scrollTo(0, document.body.scrollHeight);
 });
