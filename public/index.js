@@ -19,7 +19,7 @@ socket.on('chat message', function(name, msg, date_time) {
     message_text.textContent = name + ": " + msg;
     let date_text = document.createElement('div');
     date_text.style['float'] = 'right';
-    date_text.textContent = date_time;
+    date_text.textContent = date_time.toLocaleDateString();
     let item = document.createElement('li');
     item.style['overflow'] = 'auto';
     item.appendChild(message_text);
