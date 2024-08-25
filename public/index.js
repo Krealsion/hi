@@ -15,13 +15,13 @@ form.addEventListener('submit', function(e) {
 
 socket.on('chat message', function(name, msg, date_time) {
     let message_text = document.createElement('div');
-    message_text.style['display'] = 'inline-block';
+    message_text.style['float'] = 'left';
     message_text.textContent = name + ": " + msg;
     let date_text = document.createElement('div');
-    date_text.style['display'] = 'inline-block';
-    date_text.style['margin-left'] = 'auto';
+    date_text.style['float'] = 'right';
     date_text.textContent = date_time;
     let item = document.createElement('li');
+    item.style['overflow'] = 'auto';
     item.appendChild(message_text);
     item.appendChild(date_text);
     messages.appendChild(item);
