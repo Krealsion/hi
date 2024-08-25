@@ -14,12 +14,13 @@ form.addEventListener('submit', function(e) {
 });
 
 socket.on('chat message', function(name, msg, date_time) {
+    console.log(name, ', ', msg, ', ', date_time);
     let message_text = document.createElement('div');
     message_text.style['float'] = 'left';
     message_text.textContent = name + ": " + msg;
     let date_text = document.createElement('div');
     date_text.style['float'] = 'right';
-    date_text.textContent = date_time.toLocaleDateString();
+    date_text.textContent = new Date(date_time).toLocaleString();
     let item = document.createElement('li');
     item.style['overflow'] = 'auto';
     item.appendChild(message_text);
