@@ -16,6 +16,7 @@ form.addEventListener('submit', function(e) {
 socket.on('chat message', function(name, msg, date_time) {
     let item = document.createElement('li');
     let message_text = document.createElement('div');
+    message_text.setAttribute('float', 'left');
     message_text.textContent = name + ": " + msg;
     let date_text = document.createElement('div');
     date_text.setAttribute('float', 'right');
