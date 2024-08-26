@@ -5,6 +5,21 @@ const form = document.getElementById('form');
 const input = document.getElementById('input');
 const name_input = document.getElementById('name_input');
 
+function updateName() {
+    console.log("onblur");
+    let name = name_input.value;
+    console.log(name)
+    fetch('http://localhost:3000/saveName', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({name}),
+    }).then(res => {
+        console.log(res.data);
+    });
+}
+
 form.addEventListener('submit', function(e) {
     e.preventDefault();
     if (input.value) {
@@ -15,16 +30,21 @@ form.addEventListener('submit', function(e) {
 
 socket.on('chat message', function(name, msg, date_time) {
     console.log(name, ', ', msg, ', ', date_time);
+
     let message_text = document.createElement('div');
     message_text.style['float'] = 'left';
     message_text.textContent = name + ": " + msg;
+
     let date_text = document.createElement('div');
     date_text.style['float'] = 'right';
     date_text.textContent = new Date(date_time).toLocaleString();
+
     let item = document.createElement('li');
     item.style['overflow'] = 'auto';
     item.appendChild(message_text);
     item.appendChild(date_text);
+
     messages.appendChild(item);
+
     window.scrollTo(0, document.body.scrollHeight);
 });

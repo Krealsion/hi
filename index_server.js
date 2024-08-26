@@ -3,9 +3,9 @@ const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const port = process.env.PORT || 3000;
-const ioredis = require('ioredis');
-const path = require('path');
+const bodyParser = require('body-parser');
 
+const ioredis = require('ioredis');
 const redis = new ioredis();
 const MESSAGE_LIST_KEY = 'messages';
 const MAIN_CHANNEL_KEY = 'main';
@@ -29,7 +29,6 @@ const updateWithMessages = async (socket) => {
       let name = JSON.parse(msg).name;
       let message = JSON.parse(msg).message;
       let date = new Date(JSON.parse(msg).timestamp);
-      console.log(name, message, date);
       socket.emit('chat message', name, message, date);
     });
   } catch (error) {
@@ -37,7 +36,31 @@ const updateWithMessages = async (socket) => {
   }
 };
 
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.json());
+
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/public/index.html');
+});
+
+app.get('/index.js', (req, res) => {
+  res.sendFile(__dirname + '/public/index.js');
+});
+
+app.get('/index.css', (req, res) => {
+  res.sendFile(__dirname + '/public/index.css');
+});
+
+app.post('/saveName', (req, res) => {
+  console.log(req.body);
+  res.send(req.body.name);
+  // req.session.name = req.body;
+});
+
+app.get('/getName', (req, res) => {
+  // res.sendFile(__dirname + '/public/index.css');
+});
 
 io.on('connection', async (socket) => {
   console.log('New WebSocket client connected.');
