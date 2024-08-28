@@ -5,8 +5,14 @@ const form = document.getElementById('form');
 const input = document.getElementById('input');
 const name_input = document.getElementById('name_input');
 
+window.onload = function() {
+    fetch('/getName').then(res => res.json()).then(data => {
+        console.log("/getName returned:" + JSON.stringify(data));
+        name_input.value = data.name;
+    });
+}
+
 function updateName() {
-    console.log("onblur");
     let name = name_input.value;
     console.log(name)
     fetch('http://localhost:3000/saveName', {
@@ -16,7 +22,7 @@ function updateName() {
         },
         body: JSON.stringify({name}),
     }).then(res => {
-        console.log(res.data);
+        // console.log(res.data);
     });
 }
 

@@ -1,4 +1,5 @@
 const express = require('express');
+const session = require('express-session')
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
@@ -9,6 +10,16 @@ const ioredis = require('ioredis');
 const redis = new ioredis();
 const MESSAGE_LIST_KEY = 'messages';
 const MAIN_CHANNEL_KEY = 'main';
+
+app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.json());
+app.use(session({
+  secret: 'j*d2Br2n(r3uh(SA*b3jnajnf9)(383n23(3',
+  resave: false,
+  name: "",
+  saveUninitialized: true,
+  cookie: { secure: false }
+}));
 
 // Function to send a message to a specific channel and store it
 const sendMessage = async (channel, name, message) => {
@@ -37,8 +48,6 @@ const updateWithMessages = async (socket) => {
 };
 
 // app.use(express.static(path.join(__dirname, 'public')));
-app.use(bodyParser.urlencoded({extended:false}));
-app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/index.html');
@@ -53,13 +62,21 @@ app.get('/index.css', (req, res) => {
 });
 
 app.post('/saveName', (req, res) => {
-  console.log(req.body);
-  res.send(req.body.name);
-  // req.session.name = req.body;
+  console.log('saving name...');
+  console.log(req.body.name);
+  req.session.name = req.body.name;
+  console.log('saved name in session is...');
+  console.log(req.session.name);
+  req.session.save();
+  res.send("Name Saved");
 });
 
 app.get('/getName', (req, res) => {
-  // res.sendFile(__dirname + '/public/index.css');
+  if (req.session.name) {
+    console.log('sending name...');
+    console.log(req.session.name);
+    res.end(JSON.stringify({name: req.session.name}));
+  }
 });
 
 io.on('connection', async (socket) => {
