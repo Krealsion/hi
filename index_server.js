@@ -72,10 +72,14 @@ app.post('/saveName', (req, res) => {
 });
 
 app.get('/getName', (req, res) => {
-  if (req.session.name) {
-    console.log('sending name...');
-    console.log(req.session.name);
-    res.end(JSON.stringify({name: req.session.name}));
+  try {
+    if (req.session.name) {
+      console.log('sending name...');
+      console.log(req.session.name);
+      res.end(JSON.stringify({name: req.session.name}));
+    }
+  } catch {
+    console.log("No session token found, errored out of getName. PLEASE FIX");
   }
 });
 
