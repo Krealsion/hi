@@ -81,6 +81,7 @@ app.get('/getName', (req, res) => {
   } catch {
     console.log("No session token found, errored out of getName. PLEASE FIX");
   }
+    res.end("");
 });
 
 io.on('connection', async (socket) => {
