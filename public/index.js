@@ -6,10 +6,10 @@ const input = document.getElementById('input');
 const name_input = document.getElementById('name_input');
 
 window.onload = function() {
-    // fetch('/getName').then(res => res.json()).then(data => {
-    //     console.log("/getName returned:" + JSON.stringify(data));
-    //     name_input.value = data.name;
-    // });
+    fetch('/getName').then(res => res.json()).then(data => {
+        console.log("/getName returned:" + JSON.stringify(data));
+        name_input.value = data.name;
+    });
 }
 
 function updateName() {
