@@ -74,6 +74,9 @@ app.get('/index.css', (req, res) => {
 });
 
 app.post('/saveName', (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET, PUT, POST");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   console.log('saving name...');
   console.log(req.body.name);
   req.session.name = req.body.name;
