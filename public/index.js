@@ -29,7 +29,6 @@ function updateName() {
 }
 
 input.addEventListener('keydown', function (e) {
-    e.preventDefault();
     if (e.key === 'Enter'){
         socket.emit('chat message', name_input.value, input.value);
         input.value = '';
