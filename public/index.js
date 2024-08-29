@@ -17,7 +17,7 @@ function updateName() {
     // Save Name to session
     let name_to_save = name_input.value;
     console.log(name_to_save);
-    fetch('http://localhost:3000/saveName', {
+    fetch('winter.heronet.us:22080/saveName', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
