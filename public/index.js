@@ -15,14 +15,14 @@ window.onload = function() {
 
 function updateName() {
     // Save Name to session
-    let name = name_input.value;
-    console.log(name);
+    let name_to_save = name_input.value;
+    console.log(name_to_save);
     fetch('http://localhost:3000/saveName', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({name})
+        body: JSON.stringify({name: name_to_save}),
     }).then(res => {
         console.log(res.data);
     });
