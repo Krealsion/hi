@@ -1,9 +1,9 @@
 {
-  "name": "Socket-Chat-Example",
-  "description": "my first socket.io app",
-  "website": "https://github.com/socketio/chat-example",
-  "repository": "https://github.com/socketio/chat-example",
-  "logo": "https://node-js-sample.herokuapp.com/node.svg",
+  "name": "An Unknown Webserver",
+  "description": "A Webserver for many different things",
+  "website": "winter.heronet.net:22080",
+  "repository": "https://github.com/Krealsion/hi",
+  "logo": "winter.heronet.net:22080/logo.svg",
   "success_url": "/",
   "keywords": [
     "node",

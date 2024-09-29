@@ -1,13 +1,128 @@
-body { margin: 0; padding-bottom: 3rem; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+body {
+    margin: 0;
+    padding-bottom: 3rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+    body.adaptive {
+        margin: 0;
+        padding-bottom: 3rem;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background-color: #333333;
+    }
+}
 
-#form { background: rgba(0, 0, 0, 0.15); padding: 0.25rem; position: fixed; bottom: 0; left: 0; right: 0; display: flex; height: 3rem; box-sizing: border-box; backdrop-filter: blur(10px); }
-#name_text_box {height: 100%}
-#name_text {position: relative; top: 50%; -webkit-transform: translateY(-50%); -ms-transform: translateY(-50%); transform: translateY(-50%);}
-#name_input { border: none; padding: 0 1rem; flex-grow: .2; border-radius: 2rem; margin: 0.25rem; }
-#input { border: none; padding: 0 1rem; flex-grow: 1; border-radius: 2rem; margin: 0.25rem; }
-#input:focus { outline: none; }
-#form > button { background: #333; border: none; padding: 0 1rem; margin: 0.25rem; border-radius: 3px; outline: none; color: #fff; }
+#form {
+    background: rgba(0, 0, 0, 0.15);
+    padding: 0.25rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    height: 3rem;
+    box-sizing: border-box;
+    backdrop-filter: blur(10px);
+}
 
-#messages { list-style-type: none; margin: 0; padding: 0; }
-#messages > li { padding: 0.5rem 1rem; }
-#messages > li:nth-child(odd) { background: #efefef; }
+@media (prefers-color-scheme: dark) {
+    #form.adaptive {
+        background-color: #333333;
+        padding: 0.25rem;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        height: 3rem;
+        box-sizing: border-box;
+        backdrop-filter: blur(10px);
+        color: #efefef;
+    }
+}
+
+#name_text_box {
+    height: 100%
+}
+
+#name_text {
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+#name_input {
+    border: none;
+    padding: 0 1rem;
+    flex-grow: .2;
+    border-radius: 2rem;
+    margin: 0.25rem;
+}
+
+#input {
+    border: none;
+    padding: 0 1rem;
+    flex-grow: 1;
+    border-radius: 2rem;
+    margin: 0.25rem;
+}
+
+#input:focus {
+    outline: none;
+}
+
+#form > button {
+    background: #333;
+    border: none;
+    padding: 0 1rem;
+    margin: 0.25rem;
+    border-radius: 3px;
+    outline: none;
+    color: #fff;
+}
+
+@media (prefers-color-scheme: dark) {
+    #form.adaptive > button {
+        background: #AAA;
+        border: none;
+        padding: 0 1rem;
+        margin: 0.25rem;
+        border-radius: 3px;
+        outline: none;
+        color: #000;
+    }
+}
+
+#messages {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#messages > li {
+    padding: 0.5rem 1rem;
+}
+
+@media (prefers-color-scheme: dark) {
+    #messages.adaptive > li {
+        padding: 0.5rem 1rem;
+        color: #efefef;
+    }
+}
+
+#messages > li:nth-child(odd) {
+    background: #efefef;
+}
+
+@media (prefers-color-scheme: dark) {
+    #messages.adaptive > li:nth-child(even) {
+        background: #434343;
+    }
+}
+@media (prefers-color-scheme: dark) {
+    #messages.adaptive > li:nth-child(odd) {
+        background: #212121;
+    }
+}
